@@ -1,0 +1,1022 @@
+\documentclass[a4paper]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage{ngerman}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{pdfpages}
+\usepackage{mathtools}
+\usepackage{tikz}
+\usepackage{ulem}
+\usepackage{hyperref}
+\usepackage{pgf,tikz}
+
+\title{Stochastik}
+\date{Wintersemester 2014/2015}
+\author{Markus Klemm.net}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Zufällige Ereignisse, Wahrscheinlichkeit}
+\subsection{Gegenstand der Wahrscheinlichkeitstheorie}
+\subparagraph{Gegenstand} Untersuchung der Gesetzmäßigkeiten zufälliger Erscheinungen.
+\subparagraph{Zufällige Erscheinungen} Vorgänge, die bestimmten unkontrollierten Einflüssen unterworfen sind und deren Ergebnis im Gegensatz zu deterministischen Erscheinungen im Einzelfall nicht exakt vorhergesagt werden kann.
+
+\paragraph{Beispiel 1} Geg. Raum R mit Luft gefüllt, $V= 100 \, m^3, p_1 = 1000 \,hPa, T_1 = 250 \, K (-23 ^\circ C)$, Teilraum $R_0, V_0 = 1 \, dm^3$
+\begin{enumerate}
+\item R hermetisch abgeschlossen, Temperatur erhöhen auf $T_2 = 300 K \curvearrowright p_2 = p_1 \cdot \frac{T_2}{T_1} = 1200 \, hPa$ (deterministischer Vorgang)
+\item N \dots Anzahl der Moleküle in R, $N \approx 3 \cdot 10^{27} $ (davon $O_2: M = 0,6\cdot 10^{27}$)\\*
+n \dots Anzhal der Moleküle in  $R_0, n \approx 3 \cdot 10^{22}$
+\begin{itemize}
+\item Aufenthaltsort eines bestimmten $O_2$-Moleküls: zufällige Erscheinung
+\item Wahrscheinlichkeit, dass sich alle $O_2$-Moleküle in $R \backslash R_0$ befinden: $\approx 10^{-2,907 \cdot 10^{21}}$
+\end{itemize}
+Ereignis möglich, aber so unwahrscheinlich, dass es praktisch nicht auftritt.
+\end{enumerate}
+
+\paragraph{Diskussion}
+\begin{enumerate}
+\item Begriffe: $H_n (A)$ \dots absolute Häufigkeit von $A$ bei $n$ Wiederholungen\\*
+$W_n (A) := \frac{H_n (A)}{n}$ \dots relative Häufigkeit von $A$
+\item Erfahrung: In langen Versuchsreihen schwankt die relative Häufigkeit um eine konstante Zahl.
+\item Beobachtung der relativen Häufigkeit = Messverfahren zur Messung der Wahrscheinlichkeit (wie jedes Messverfahren, fehlerbehaftet, Messfehler kann beliebig verkleinert werden, wenn $n$ hinreichen groß ist)
+\end{enumerate}
+
+
+\subsection{Grundlegende Begriffe, Ereignisalgebra}
+\subparagraph{Definition 1} Ein zufälliger Versuch ist ein Vorgang, der sich (zumindest gedanklich) beliebig oft wiederholen lässt, und dessen Ergebnis im Rahmen verschiedener Möglichkeiten ungewiss ist.
+\subparagraph{Definition 2} Die Ergebnisse eines zufälligen Versuchs heißen zufällige Ereignisse. Speziell:\\*
+$\Omega$ \dots sicheres Ereignis (tritt bei jeder Wiederholung auf)\\*
+$\Phi$ \dots unmögliches Ereignis (tritt bei keiner Wiederholung auf )
+\subparagraph{(vorläufige) Erklärung:} Grad der Gewissheit des Eintretens eines Ereignisses = Wahrscheinlichkeit (Wkt.)
+
+Bezeichnung: P(Ereignis) = Zahl $\in [0;1], P(\Omega) = 1, P(\Phi) = 0$
+
+\subparagraph{Bemerkung}: Jeder zufällige Versuch ist durch eine Menge $\Omega$ von Elementarerignissen $\omega$ charakterisiert. Jedem zufälligen zufälligen Ereignis $A$ entspricht umkehrbar eindeutig eine Teilmenge $A$ von $\Omega$.
+
+Oft: Idealisierte Darstellung als Menge in einer Ebene.\\
+\begin{tabular}{c|l}
+Ereignis & Menge \\ \hline
+$A=\{$ ungerade Augenzahl $\}$ & $A=\{1,3,5\}$\\
+$\Omega = \{$ Augenzahl $<7\}$ & $\Omega =\{1,2,3,4,5,6\}$\\
+$\Phi = \{$ Augenzahl = 7 $\}$ & $\Phi$ (leere Menge) \\
+\end{tabular}\\
+(idealer Würfel: $P(A)= \frac{3}{6}$)
+
+\subparagraph{Definition 3} Für zufällige Ereignisse $A,B$ werden folgende Relationen und Operationen erklärt:
+\begin{enumerate}
+\item $A \subseteq B$, A Teilereignis von B (A zieht B nach sich (wenn A dann auch B))
+\item $A=B : \Leftrightarrow A \subseteq B \wedge B \subseteq A$
+\item $\bar{A}$ \dots komplementäres Ereignis zu A, Negation
+\item $A \cup B$ Vereinigung von A und B (A oder B)
+\item $A \cap B$ Durchschnitt von A und B (A und B)
+\item $A \backslash B := A \cap \bar{B}$ Differenz "`A minus B"'
+\end{enumerate}
+
+\subparagraph{Diskussion} (Rechenregeln)
+\begin{enumerate}
+\item $A \cup \Omega = \Omega, A \cup \Phi = A, A \cap \Omega = A, A \cap \Phi = \Phi, \Phi \subseteq A \subseteq \Omega$
+\item $A \subseteq B \Leftrightarrow \bar{B} \subseteq \bar{A}  \Leftrightarrow A \cap B = A \Leftrightarrow A \cup B = B$
+\item 
+\begin{enumerate}
+\item $A \cup B = B \cup A, A \cap B = B \cap A$ (Kommutativgesetz)
+\item $(A \cup B) \cup C = A \cup (B \cup C), (A \cap B) \cap C = A \cap (B \cap C)$ (Assoziativgesetz)
+\[ \text{Allg. } \bigcup_{i=1}^n A_i = A_1 \cup A_2 \cup \dots \cup A_n\] tritt genau dann ein, wenn wenigstens eines der Ereignisse $A_i$ eintritt.
+\[ \bigcap_{i=1}^n A_i = A_1 \cap A_2 \cap \dots \cap A_n\]
+\item Formel von de \textsc{Morgan}\\
+$\overline{A \cup B} = \bar{A} \cap \bar{B} \quad \overline{A \cap B} = \bar{A} \cup \bar{B}$
+\end{enumerate}
+\end{enumerate}
+
+\subparagraph{Beispiel 4}
+\begin{enumerate}
+\item In einem Betrieb gibt es 3 Produktionslinien (PL) gleichen Typs. Wir beobachten eine Arbeitsperiode von 16h und regestrieren, ob Störungen auftreten oder nicht.
+\begin{itemize}
+\item $A_i := \{$ Störungen, in $i$-ter PL $\} (i = 1,2,3)$
+(sogenannte ”`einfache"' Ereignisse, auf einzelne PL bezogen)
+\item Elementarereignisse: geordnete Zahlentupel $(k_1,k_2,k_3)$ mit\\ $k_i = \left\{ \begin{array}{lcr} 1 & \dots & \text{Störung(en)} \\ 0 & \dots & \text{keine Störung} \\ \end{array} \right. $ in $i$-ter PL, z.B. $A_1 = \{ (1,0,0),(1,01),(1,1,0),(1,1,1)\}$ (Falls genauere Beobachtung, etwas Anzahl/Zeitpunkte der Störungen, komplizierteres Modell)
+\end{itemize}
+\item Die folgenden Ereignisse $A,B,\dots,F$ sind durch die einfachen Ereignisse $A_i$ auszudrücken:\\
+$A=\{$ in allen PL treten Störungen auf $\} = A_1 \cap A_2 \cap A_3$\\
+$B=\{$ in genau 2 PL treten Störungen auf$\} = (A_1 \cap A_2 \cap \bar{A_3}) \cup (A_1 \cap \bar{A_2} \cap A_3) \cup (\bar{A_1} \cap A_2 \cap A_3)$\\
+$C=\{$ in genau einer PL Störungen $\} = (A_1 \cap \bar{A_2} \cap \bar{A_3} ) \cup (\bar{A_1} \cap A_2 \cap \bar{A_3} ) \cup (\bar{A_1} \cap \bar{A_2} \cap A_3)$
+\item $D= \{$ in keiner PL treten Störungen auf $\} = \bar{A_1} \cap \bar{A_2} \cap \bar{A_3}$
+\item $E = \{$ in wenigstens einer PL treten Störungen auf $\} = A_1 \cup A_2 \cup A_3$
+\item $F= \{$ Störungen in wenigstens 2 PL $\} = B \cup A = $
+\end{enumerate}
+\subparagraph{Definition 4} Zwei Ereignisse $A$ und $B$ heißen unvereinbar, wenn $A \cap B = \Phi$ gilt
+
+Bemerkung: Nur in diesem Fall ist das "`Oder"' ($\bigcup$) gleichzeitig ein "`Entweder-Oder"'.
+
+\subparagraph{Definition 5} Ein System $\mathfrak{A}$ %deutsch A
+von Ereignisalgebra, Durchschnitt und Negation (und damit auch Differenz) abgeschlossen. (Insbesondere gehören $\Omega$ stets zu einer Algebra)
+\subparagraph{Diskussion} Die Ergebnis eines zufälligen Versuchs bilden eine Ereignisalgebra.
+
+\subsection{Die Wahrscheinlichkeit von Ereignissen}
+\subsubsection{Klassische Definition}
+\subparagraph{Definition 6} Bei einem zufälligen Versuch gebe es genau $N$ gleichmögliche Elementarereignisse $\omega_1,\dots ,\omega_N$, d.h. $\Omega = \{\omega_1,\omega_2,\dots,\omega_N\}$ \dots Dann heißt für jedes zufällige Ereignis $A$ die Zahl
+\[ P(A) := \frac{M}{N} := \frac{\text{Anzahl der für A "` günstigen Elementarereignisse}}{\text{Anzahl aller möglichen Elementarereignisse}} \]
+die Wahrscheinlichkeit des zufälligen Ereignisses $A$, (Elementarereignis $\omega_i$ günstig für $A$ bedeutet $\omega_i \in A$, wobei $A$ die dem Ereignis $A$ entsprechende Teilmenge von $\Omega$ ist)
+
+\subparagraph{Diskussion} 
+\begin{enumerate}
+\item Die Ereignisse, die dem einelementigen Teilmengen $A_i = \{ \omega_i \}, i = 1,2,\dots,N$, entsprechen, sind atomar
+\item Entscheidende Vorraussetzung für die Verwendbarkeit der klassischen Definition ist die Gleichmöglichkeit der Elementarereignisse (= Gleichwahrscheinlichkeit der atomaren Ereignissen $A_I = \{ \omega_i \}$)
+\item Die Ermittlung von $M$ und $N$ aus Def. 6 erfolgt häufig mit Hilfe der Kombinatorik
+\end{enumerate}
+
+\subparagraph{Grundaufgaben der Kombinatorik}
+\begin{enumerate}
+\item Permutationen
+\begin{itemize}
+\item $P_n:$ Anzahl der möglichen Anordnungen von $n$ verschiedenen Elementen $P_n = n!$
+\item $P_{(n_1,n_2,\dots,n_k)}$ \dots Anzahl der möglichen Anordnungen von $n$ Elementen, von denen jeweils $n_1,n_2,\dots,n_k$ gleich sind $(n_1+n_2+\dots+n_k = n )$\\
+$P_{(n_1,\dots,n_k)} = \frac{n!}{n_1 !  \cdot n_2 ! \cdot \dots \cdot n_k ! }$
+\end{itemize}
+\item Kombinationen ($n$ Elemente in Klassen zu $k$ Elementen anordnen, ohne Berücksichtigung der Reihenfolge)
+\begin{enumerate}
+\item ohne Wiederholung $(k \leq n) : C(n,k) = \binom{n}{k}$
+\item mit Wiederholung $C^* (n,k) = \binom{n+k-1}{k}$
+\end{enumerate}
+\item Variationen ($n$ Elemente in Klassen zu $k$ Elementen anordnen, mit Berücksichtigung der Reihenfolge)
+\begin{enumerate}
+\item ohne Wiederholung $(k \leq n) : V(n,k) = n (n-1) \dots  \cdot (n-k+1) = \frac{n!}{(n-k)!}$
+\item mit Wiederholung $V^* (n,k) = n^k$
+\end{enumerate}
+
+\end{enumerate}
+
+\subsubsection{Axiomatische Definition der Wahrscheinlichkeit}
+\paragraph{Vorbetrachtung}
+\begin{itemize}
+\item Mangel der klassischen Definition: Nicht immer liegen gleichmögliche Elementarereignisse vor
+\item !Abschnitt 1.1.: $W_n (A) = \frac{H_n (A)}{n}$ \dots relative Häufigkeit von $A$ bei $n$ Versuchswiederholungen. Im langen Versuchsreihen schwankt $W_n (A) $ um eine konstante Zahl: "`$ \lim\limits_{n \to \infty} W_n (A)$"' $=: P(A)$\\
+Zur Definition der Wiederholung ungeeignet (von Versuchsreihe abhängig)
+\item Aber Eigenschaften der relativen Häufigkeit
+\begin{enumerate}
+\item $0 \leq W_n(A) \leq 1$
+\item $W_n(\Omega) = 1$
+\item $W_n (A \cup B) = W_n(A) + W_n(B) (\text{ falls } A \cap B = \varnothing)$
+\end{enumerate}
+\end{itemize}
+
+\paragraph{Definition 7} (Axiomatische Definition der Wiederholung, \textsc{Kolmogorov} 1933)\\*
+Gegeben sei eine Ereignisalgebra $\mathfrak{A}$. Auf $\mathfrak{A}$ sei eine Funktion $P$ erklärt, für die folgendes gilt:
+\begin{itemize}
+\item A1: Für jedes Ereignis $A \in \mathfrak{A}$ ist $P(A)$ erklärt und es gilt $0 \leq P(A) \leq 1$
+\item A2: $P(\Omega) = 1$
+\item A3: Für paarweise unvereinbare Ereignisse $A_i \in \mathfrak{A}$ (d.h. $A_i \cap A_j = \varnothing \text{ für } i \neq j$) gilt: $P(A_1 \cup A_2 \cup \dots) = P (A_1) + P(A_2) + \dots$
+\end{itemize}
+Dann heißt $P(A)$ die Wiederholung des zufälligen Ereignisses $A$
+
+\paragraph{Diskussion}
+\begin{enumerate}
+\item Die Definition 6 (klassische Definiton) liefert ein (!) Modell eines Paares $(\mathfrak{A},P)$, welches den Axiomen 1-3 genügt.
+\item Allgemeines Vorgehen (vereinfachte Darstellung)
+[Theoretische Untersuchungen (Kombinatorik, physikalische Gesetze); Beobachtung der relativen Häufigkeit] $\Rightarrow$ [Für gewissen Grundereignisse sind die Wahrscheinlichkeiten exakt oder näherungsweise bekannt] $\Rightarrow$ (Rechenregeln aus A1 bis A3 ableitbar) [Wahrscheinlichkeiten für alle interessierenden Ereignisse berechenbar]
+\end{enumerate}
+
+\paragraph{Satz 1} (Eigenschaften der Wahrscheinlichkeit)\\*
+Es seien $A,B,C,\dots$ zufällige Ereignisse. Dann gilt:
+\begin{enumerate}
+\item $P(\varnothing) = 0$
+\item 
+    \begin{itemize}
+    \item $P(A \cup B) = P(A) + P(B) - P(A\cap B)$
+    \item $P(A \cup B \cup C) = P(A) + P(B) + P(C) - P(A \cap B) - P(A \cap C) - P(B \cap C) + P(A \cap B \cap C)$
+    \item allg.: $P(A_1 \cup \dots \cup A_n) = \sum\limits_i P(A_i) - \sum\limits_{i < j} P(A_i \cap A_j) + \sum\limits_{i < j <k} P (A_i \cap A_j \cap A_k) - + \dots + (-1)^{n+1} P(A_1 \cap A_2 \cap \dots \cap A_n)$
+    \end{itemize}
+\item $P(\bar{A}) = 1 - P(A)$
+\item $A \subseteq B \Rightarrow P(A) \leq P(B)$
+\end{enumerate}
+
+\subsubsection{Bedingte Wahrscheinlichkeit}
+\paragraph{Definition 8} $A$ und $B$ seien zufällige Ereignisse, $P(B) > 0$. Dann heißt
+\[ P(A / B) := \frac{P(A\cap B)}{P(B)} \]
+die bedingte Wahrscheinlichkeit von $A$ unter der Bedingung $B$.\\
+Anmerkung des Authors: Vorsicht:
+\begin{itemize}
+\item $P(A / B)$ \dots bedingte Wahrscheinlichkeit
+\item $A \backslash B$ \dots Differenz
+\end{itemize}
+
+\subparagraph{Diskusssion}
+\begin{enumerate}
+\item Die Funktion $P(. / B)$ besitzt die gleichen Eigenschaften wie die Funktion $P(.)$, z.B. $P(\bar{A} / B) = 1 - P(A / B)$ usw., vgl. Satz 1
+\item Anschaulich:
+    \begin{itemize}
+    \item $P(A / B)$ \dots Anteil von $A$ innerhalb der Bezugsmenge $B$
+    \item $P(A) = P(A / \Omega)$ \dots Anteil von A innerhalb der Bezugsmenge $\Omega$
+    \end{itemize}
+\item Berechnung oft (falls gleichmögliche Elementarereignisse vorliegen) klassisch möglich.
+\end{enumerate}
+
+\subsection{Spezielle wahrscheinlichkeitstheoretische Modelle}
+\subsubsection{Multiplikationssatz}
+\paragraph{Satz 2} $A$ und $B$ seien zufällige Ereignisse, $P(A) > 0, P(B) >0$: Dann gilt
+\[ P(A\cap B) = P(A) \cdot P(B / A) = P(B) \cdot P(A / B)\]
+Allgemein: $P(A_1 \cap A_2 \cap \dots \cap A_n) = P(A_1) \cdot P(A_2 / A_1) \cdot P(A_3 / A_1 \cap A_2) \cdot \dots \cdot P(A_n / A_1 \cap A_2 \cap \dots \cap A_{n-1})$
+
+Beweis: Definition 8 $\curvearrowright P(A \cap B ) = P (B) \cdot P(A / B)$ usw.
+
+\subparagraph{Beispiel 8} In einer Lostrommel befinden sich 20 Lose, davon 5 Gewinnlose. Jemand zieht 3 Lose nacheinander. Gesucht:Die Wahrscheinlichkeit 3 Gewinnlose zu ziehen.\\
+$A_k := \{$ Gewinn bei $k$-ten Zug $\}, k=1,2,3$\\
+Lösung: Multiplikationssatz 
+\begin{equation}\label{1411}
+P(A_1 \cap A_2 \cap A_3) = P(A_1) \cdot P(A_2 / A_1) \cdot P(A_3 / A_1 \cap A_2)
+\end{equation}
+\begin{enumerate}
+\item Gezogenes Los wird nicht in die Trommel zurückgelegt \\*
+(\ref{1411}) $\curvearrowright P(A_1 \cap A_2 \cap A_3) \frac{5}{20} \cdot \frac{4}{19} \cdot \frac{3}{18} = 0,00877 \dots$
+\item gezogenes Los wird wieder in die Trommel zurückgelegt\\*
+(\ref{1411}) $\curvearrowright P(A_1 \cap A_2 \cap A_3) = \frac{5}{20}^3 = 0,01562$
+\end{enumerate}
+
+\subparagraph{Diskussion}
+\begin{enumerate}
+\item Anwendung des Multiplikationssatzes oft bei zufälligen Versuchen die aus aufeinanderfolgenden Teilversuchen bestehen.
+\item vgl Beispiel 8
+\begin{enumerate}
+\item ohne Zurücklegen: Ergebnis des 2. Zuges von Ergebnis des 1. Zuges abhängig
+\item mit Zurücklegen: Ergebnis des 2. Zuges wird vom Ergebnis des 1. Zuges nicht beeinflusst: $P(A_1 \cap A_2) = P(A_1) \cdot P(A_2 / A_1) = P(A_1) \cdot P(A_2)$. 
+
+Begriff: Unabhängigkeit
+\end{enumerate}
+\end{enumerate}
+
+\subsubsection{Unabhängigkeit von Ereignissen}
+\paragraph{Definition 9} Zwei Ereignisse $A$ und $B$ heißen (stochastisch) unabhängig, wenn \[ P(A \cap B) = P(A) \cdot P(B)\] gilt.
+
+\subparagraph{Diskussion}
+\begin{enumerate}
+\item Es sei $P(B) > 0$, dann gilt: $A$ und $B$ sind genau dann abhängig, wenn gilt:
+\[ P(A / \underbrace{B}_{\text{Bedingte Whk. hängt nicht v. Bed. ab}}) = P(A) \]
+\item Die Ereignisse $A_1,\dots,A_n$ heißen (in ihrer Gesamtheit) unabhängig, wenn $P(A_{k_1} \cap A_{k_2} \cap \dots \cap A_{k_m} ) = P(A_{k_1} ) \cdot P(A_{k_2}) \cdot \dots \cdot P (A_{k_m})$ für eine beliebige Auswahl von $m(2 \leq m \leq n)$ der $n$ Ereignisse gilt.
+\item $A$ und $B$ seien unabhängig, dann sind auch $A$ und $\bar{B}$, $\bar{A}$ und $B$ sowie $\bar{A}$ und $\bar{B}$ unabhängig, analog für mehr als 2 Ereignisse von $A$ und $B$ sind unabhängig, d.h. $P(A\cap B) = P(A) \cdot P(B)$
+\item Vorsicht: Man unterscheide $A$ und $B$ sind unvereinbar, d.h. $A \cap B = \varnothing$
+\item Veranschaulichung des Begriffes Unabhängigkeit\\*
+Produkt mit 2 möglichen Fehlern, z.B. Videokassetten, Fehler 1: Schlechte Bildqualität, Fehler 2: schlechte Tonqualität.\\
+$A:=\{$ Produkt besitzt Fehler 1 $\}, B:= \{$ Produkt besitzt Fehler 2 $\}$
+\begin{enumerate}
+\item Hersteller 1\\
+$P(A) = 20 \% $ 
+$P(B) = 10\%, P(A \cap B) = 5 \% , P(A / B) = 50 \%$
+\begin{itemize}
+\item $20\% $ aller Erzeugnisse besitzen Fehler 1
+\item Unter den Produkten mit Fehler 2 besitzt die Hälfte ($50\%$) auch den Fehler 1, d.h. unter diesen Produkten tritt Fehler 1 häufiger auf $\rightarrow$ Stochastische Abhängigkeit zwischen 1 und 2\\
+$P(A\cap B) = 0,05 \neq P(A) P(B) = 0,02$
+\end{itemize}
+\item Hersteller 2\\
+$P(A) = 20 \%, P(B) = 10 \% , P(A\cap B) = 2 \%, P(A / B) = 20 \%$
+
+Anteil von $A$ unter allen Produkten $= 20 \%$, aber auch Anteil innerhalb von $B$ ist $20\% \curvearrowright$ Unabhängigkeit der beiden Fehler\\
+$P(A \cap B) = 0,02 = P(A) \cdot P(B)$
+\end{enumerate}
+\end{enumerate}
+
+\paragraph{Satz 3} $A_1,A_2,\dots,A_n$ seien (in ihrer Gesamtheit) unabhängig. Dann gilt für $A= A_1 \cup A_2 \cup \dots \cup A_n$
+\[ P (A) = 1 - P(\bar{A_1}) \cdot P(\bar{A_2}) \cdot \dots \cdot P(\bar{A_n})\]
+Beweis: \begin{enumerate}
+\item $\bar{A} = \bar{A_1} \cap \bar{A_2} \cap \dots \cap \bar{A_n}$ (de Morgan)
+\item $P(\bar{A}) = P(\bar{A_1}) \cdot P(\bar{A_2}) \cdot \dots \cdot P(\bar{A_n})$ (Unabhängigkeit)
+\item $P(A) = 1 - P(\bar{A})$
+\end{enumerate}
+
+\subparagraph{Beispiel 9} Drei Jäger schießen gleichzeitig, unabhängig voneinander auf einen Fuchs.\\
+\begin{itemize}
+\item Jäger 1 trifft mit Wahrscheinlichkeit $0,8$
+\item J 2 : $0,75$
+\item J 3: $0,2$
+\end{itemize}
+Wie groß ist die Wahrscheinlichkeit, dass der Fuchs getroffen wird?\\
+$A:=\{$ Fuchs wird getroffen $\}$\\
+$A_i = \{$ Jäger $i$ trifft den Fuchs $\} (i=1,2,3)$\\
+$A= A_1 \cup A_2 \cup A_3  \quad (A_i \text{unabhängig})$
+\[ \underbrace{\curvearrowright}_{\text{Satz 3}} P(A) = 1 - P(\bar{A_1}) \cdot P(\bar{A_2}) \cdot P(\bar{A_3}) = 1 - 0,2 \cdot 0,25 \cdot 0,8 = \underline{\underline{0,96}} \]
+
+\subsubsection{Formel der totalen Wahrscheinlichkeit, \textsc{Bayes}sche Formel}
+\paragraph{Satz 4} (Formel der totalen Wahrscheinlichkeit)\\*
+Es sei $A_1,\dots,A_n$ ein vollständiges System paarweise unvereinbarer Ereignisse (d.h. $A_i \cap A_j = \varnothing \text{ falls } i \neq j \wedge A_1 \cup A_2 \cup \dots \cup A_n = \Omega$)\\
+Dann gilt für ein beliebiges Ereignis $B$:
+\[ P(B) = \sum\limits_{i=1}^n P(A_i) \cdot P (B / A_i)\]
+$= P(A_1) \cdot P(B / A_1 ) + \dots + P(A_n) \cdot P(B / A_n)$
+
+Beweis: $B = (A_1 \cap B) \cup (A_2 \cap B) \cup \dots \cup (A_n \cap B)$\\*
+$P(B) = P(A_1 \cap B) + \dots + P(A_n \cap B) = P(A_1) \cdot P(B (A_1) + \dots + P(A_n) \cdot P(B /A_n)$
+
+\subparagraph{Beispiel 11} Die 3 Jäger aus Beispiel 9 gehen erneut auf die Jagdt. Die Trefferwahrscheinlichkeiten sind 
+\begin{itemize}
+\item J1: $0,85$
+\item J2: $0,75$
+\item J3: $0,2$
+\end{itemize}
+Diesmal schießt nur 1 Jäger, der durch das Los ermittelt wird
+\begin{enumerate}
+\item Wie groß ist die Wahrscheinlichkeit, dass der Fuchs getroffen wird?
+\item Der Fuchs wurde getroffen. Mit welcher Wahrscheinlichkeit war Jäger 3 der Schütze?
+\end{enumerate}
+$B=\{$ Fuchs wurde getroffen $\}$\\*
+$A_i = \{$ Jäger $i$ wird ausgelost $\} (i = 1,2,3)$
+\begin{enumerate}
+\item $P(B) = P(A_1) \cdot P(B / A_1) + P(A_2) \cdot P(B/ A_2) + P(A_3) \cdot P(B /A_3)$\\
+$= \frac{1}{3}\cdot 0,85  + \frac{1}{3} \cdot 0,75 + \frac{1}{3} \cdot 0,2 = 0,6$
+\item $P(A_3 / B) = \frac{P(A_3 \cap B)}{P(B)} = \frac{P(A_3 ) \cdot P(B /A_3)}{P(B)} = \frac{\frac{1}{3} \cdot 0,2 }{0,6} = 0,111\dots$
+\end{enumerate}
+
+\paragraph{Satz 5} Es gilt unter den Vorraussetzungen des Satzes 4:
+\[ P(A_j /B) = \frac{P(A_j) \cdot P(B /A_j) }{P(B)} \quad (j=1,\dots,n)\]
+(\textsc{Bayes}sche Formel für die Rückschlusswerte $P(A_j /B)$
+
+\subparagraph{Diskussion} Anwendung der Sätze 4 und 5 oft bei zufälligen Versuchen, die aus 2 aufeinanderfolgenden Teilversuchen bestehen. Im Beispiel 11: 1. Teilversuch: Auslosen, 2. Teilversuch: Schießen
+
+\section{Zufällige Variable}
+\subsection{Grundbegriffe}
+\begin{itemize}
+\item Zufälliger Versuch $\rightarrow$ zufällige Ereignisse $\rightarrow$ Wahrscheinlichkeit
+\item $\Omega$ \dots Menge aller Elementarereignisse
+\end{itemize}
+
+\paragraph{Definition 1} Ist jedem Elementarereignis $\omega$ eine reelle Zahl $X (\omega)$ zugeordnet, so heißt die dadurch erklärte Funktion $X$ (reelle) Zufallsgröße.
+
+\subparagraph{Bemerkungen}
+\begin{enumerate}
+\item Der funktionelle Zusammenhang $\omega \rightarrow X (\omega)$ ist im allgemeinem uninteressant.
+\item Von Interesse ist dagegen die Wahrscheinlichkeit, dass die Zufallsgröße (ZG) einen bestimmten Wert annimmt bzw. in ein vorgegebenes Intervall fällt.
+\item Dazu ist die sogenannte Verteilungsfunktion (VF) nützlich.
+\end{enumerate}
+
+\paragraph{Definition 2} Die Funktion $F_X (x) = P(X \leq x), \; x \in \mathbb{R}$ heißt Verteilungsfunktion der ZG $X$.
+
+\subparagraph{Diskussion}
+\begin{enumerate}
+\item $F_X (x)$ ist die Wahrscheinlichkeit, dass die ZG $X$ einen Wert annimmt, der $\leq x$ ist.
+\item Eigenschaften Eine Funktion $F(x), x \in \mathbb{R}$, ist genau dann VF einer ZG $X$, wenn folgendes gilt:
+\begin{enumerate}
+\item $0 \leq F(x) \leq 1$
+\item $\forall x_1,x_2 \in \mathbb{R} : x_1 < x_2 \Rightarrow F(x_1) \leq F(x_2) $ (Monotonie)
+\item $\lim\limits_{x \to - \infty} F(x) = 0, \lim\limits_{x \to \infty} F(x) = 1$
+\item $\lim\limits_{x \to x_0 + 0} F(x) = F(x_0)$ (rechtsseitige Stetigkeit)
+\end{enumerate}
+\item Beispiele (diskrete und stetige Verteilungen)
+\item Ist $F_X (x)$ bekannt, so lassen sich alle interessanten Wahrscheinlichkeiten berechnen z.B. gilt
+\begin{enumerate}
+\item $P(X = a) = F_X (a) - \lim\limits_{x \to a -0} F(x)$
+\item $P (X > a) = 1 - F_X (a)$ usw.
+\end{enumerate}
+\end{enumerate}
+
+\subsection{Diskrete Verteilungen}
+\subsubsection{Verteilungstabelle, Erwartungswert, Streuung}
+\subparagraph{Definition 3} Eine ZG $X$ heißt diskret verteilt, wenn sie nur endlich viele oder abzählbar unendlich viele Werte $x_0,x_1,x_2,\dots$ mit den Wahrscheinlichkeiten $p_0,p_1,p_2,\dots$ annimmt. Sprechweise auch $X$ ist diskrete ZG.
+\subparagraph{Diskussion}
+\begin{enumerate}
+\item Verteilungstabelle \\
+$\begin{array}{l||c|c|c|c}
+\text{Werte} & x_0 & x_1 & x_2 & \dots \\ \hline
+\text{Wahrscheinlichkeiten} & p_0 & p_1 & p_2 & \dots \\
+\end{array}$
+Dabei
+\[ p_i = P(X=x_1), \; \sum\limits_i p_i = 1 \quad (p_1 > 0)\]
+\item Graphische Darstellung (Stabdiagramm)
+\item $P(a \leq X \leq b) = \sum\limits_{i : a \leq x_i \leq b} p_i$
+\end{enumerate}
+
+\subparagraph{Definition 4} Es sei $X$ eine diskrete ZG mit der Verteilungstabelle
+$\begin{array}{c|cccc}
+& x_0 & x_1 & x_2 & \dots \\ \hline
+& p_0 & p_1 & p_2 & \dots \\
+\end{array}$ Dann werden definiert:
+\begin{enumerate}
+\item \[ \underbrace{EX}_{\mu_x} := \sum\limits_i x_i p_i \dots \text{ Erwartungswert (Mittelwert von } X )\]
+\item \[ \underbrace{D^2 X}_{\text{var} \, (X)} := \sum\limits_i (x_i - EX)^2 p_i \dots \text{Streuung (Varianz, Dispersion) von } X\]
+\item \[ \sigma_x := \sqrt{D^2 X} \dots \text{Standardabweichung von } X \]
+\end{enumerate}
+
+\subparagraph{Diskussion}
+\begin{enumerate}
+\item $D^2 X$ ist die mittlere quadratische Abweichung einer ZG von ihrem Erwartungswert. Es gilt
+\[ D^2 X = E (X -EX)^2 = E(X^2) - (EX)^2\] (Formel gilt auch im stetigem Fall!)\\
+Die Streuung ist eine "`rechnerische Größe"', keine anschauliche Bedeutung.
+\item Für eine beliebige Funktion $g(x)$ gilt:
+\[ Eg(X) = \sum\limits_i g(x_i) p_i, \text{ z.B. } E(X^2) = \sum\limits_i x_i^2 p_i\]
+\end{enumerate}
+
+
+\subsubsection{Spezielle diskrete Verteilungen}
+\begin{enumerate}
+\item Hypergeometrische Verteilung
+\paragraph{Definition 5} Die ZG $X$ heißt hypergeometrisch verteilt mit den ganzzahligen Parametern $N,M$ und $n(0 < M \leq N, 0 < n \leq N)$, wenn sie die Werte $x_m =m$ mit den Wahrscheinlichkeiten 
+\[ p_m := P(X = m) = \frac{\binom{M}{m} \cdot \binom{N-M}{n-m}}{\binom{N}{n}} , m = 0,1,\dots,n \]
+auch mit Kurzschreibweise $X \in H(N,M,n)$
+
+\subparagraph{Diskussion}
+    \begin{enumerate}
+    \item Anwendung Stichprobe ohne Zurücklegung (z.B. Qualitätskontrolle, Lotto)
+    \end{enumerate}
+
+Allgemein: $N$ Objekte, davon M mit bestimmten Merkmal (z.B. Ausschuss, Gewinnzahl), $n$ Objekte entnehmen.\\*
+$X$ \dots Anzahl der Objekte unter den $n$ entnommenen, die das Merkmal besitzen $\curvearrowright X \in H(N,M,n)$, vgl. auch Ü.A. 2.7.
+\item Mit $p:= \frac{M}{N}$ (Anteilswert) gilt
+\[ EX = np, \; D^2 X = \frac{N-n}{N-1} np(1-p) \]
+
+\subparagraph{Beispiel 4} In einer Lostrommel befinden sich 20 Lose, davon 5 Gewinnlose (vgl. Beispiel 8, Kap. 1), Jemand zieht 3 Lose (ohne Zurücklegung). Wie groß ist die Wahrscheinlichkeit, dass sich darunter genau 2 Gewinnnlose befinden?
+
+Lösung $X \dots$ Anzahl der Gewinnlose unter den 3 gezogenen, $X \in H(N,M,n)$ mit $N=20, M=5, n=3$
+
+$P(X=2) = \dots = 0,1316$
+
+\item Binomialverteilung
+\paragraph{Definition 6} Die ZG $X$ heißt binomialverteilt mit den Parametern $n$ und $p (n \in \mathbb{N}^*, 0 < p < 1)$, wenn sie die Werte $x_m = m$ mit den Wahrscheinlichkeiten
+\[ p_m = P(X=m) = \binom{n}{m} p^m (1-p)^{n-m}, m = 0,1,2,\dots,n \] annimmt. Kurz $X \in B (n,p)$
+
+\end{enumerate}
+
+\subparagraph{Diskussion}
+\begin{enumerate}
+\item Es git
+\[ EX = np , D^2 X = np (1-p) \]
+\item Anwendung
+    \begin{itemize}
+    \item Stichprobe mit Zurücklegung:dabei $p= \frac{M}{N}$
+    \item Angenäherte Berechnung der hypergeometrischen Verteilung $H(N,M,n)$ für große $N$ durch die leichter handhabbare Binomialverteilung:
+    \[ H(N,M,n) \approx B(n,p) \text{ mit } p = \frac{M}{N} \text{ falls } \frac{n}{N} \leq 0,05 \] (bei großem $N$ ist es praktisch bedeutungslos, ob mit oder ohne Zurücklegung gearbeitet wird )
+    \item \textsc{Bernoulli}-Schema: Es werden $n$ unabhängige Wiederholungen eines Versuches durchgeführt. Bei jeder Wiederholung wird festgestellt, ob ein bestimmtes Ereignis $A$ eintritt oder nicht. Es sei $p:= P(A)$ bei jeder einzelnen Wiederholung.\\
+    $X$ \dots Anstelle der Versuche, bei denen $A$ eintritt $\curvearrowright X \in B (n,p)$
+    
+    Denn: $A_i = \{$ bei i-ter Wiederholung tritt A ein $\} \curvearrowright \{ X=m \} =$\\* $\underbrace{( A_1 \cap \dots \cap A_m \cap  \bar{A}_{m+1} \cap \dots \cap \bar{A_n})}_{\text{unabhängig}} \cup \dots \cup \underbrace{(\bar{A_1} \cap \dots \cap \bar{A}_{n-m} \cap A_{n-m+1} \cap \dots \cap A_n)}_{\text{paarweise unvereinbar}}$\\
+    $\curvearrowright P(X=m) = P(\dots) + \dots + P(\dots)$\\
+    $= p^m (1-p)^{n-m} \dots + \dots + p^m (1-p)^{n-m}$ (Anzahl der Summanden $= \binom{n}{m}$\\
+    $= \binom{n}{m} p^m (1-p)^{n-m}$
+    \end{itemize}
+    
+\subparagraph{Beispiel 5} Ein Massenprodukt mit einem Ausschussanteil von $3\%$ wird in Packungen zu 20 Stück verkauft. Wie groß ist die Wahrscheinlichkeit, dass eine Packung höchstens 2 Ausschusstücke enthält?
+
+Lösung: $X \dots$ Anzahl der Ausschusstücke in einer Packung von 20 Stück. $X \in B(n,p), n=20, p=0,03 \%$
+
+$P(X \leq 2) = p_0 + p_1 + p_2 = 0,979 = 98 \%$
+
+\item \textsc{Poisson}-Verteilung
+\subparagraph{Definition 7} Die ZG $X$ heißt \textsc{Poisson}-verteilt mit dem Parameter $\lambda > 0$, wenn sie die Werte $x_m = m$ mit den Wahrscheinlichkeiten
+\[ p_m = P(X = m) = \frac{\lambda^m}{m!} e^{-\lambda}, m = 0,1,2,\dots\] annimmt. Kurz $X \in P(\lambda)$
+
+\subparagraph{Diskussion}
+    \begin{enumerate}
+    \item Es gilt: $EX = \lambda, \; D^2X= \lambda$
+    \item 
+        \begin{itemize}
+        \item Es gilt
+        \[ B (n,p) \approx P(\lambda) \text{ mit } \lambda = np, \text{ falls etwa } n \geq 60 \wedge p \leq 0,1 \]
+        \item Anwendung
+            \begin{itemize}
+            \item Bedienungstheorie, Zuverlässigkeitstheorie
+            \item Anzahl der eintreffenden Kunden, Forderungen pro Zeiteinheit
+            \item Anzahl der Störungen im Produktionsprozess pro Zeiteinheit
+            \end{itemize}
+        \end{itemize}
+    \end{enumerate}
+
+\subparagraph{Beispiel 6} In einer Produktionsanlage trifft im Durchschnitt alle 5 Stunden eine Störung auf (d.h. im Mittel 0,2 Störungen pro Stunde). Die Zahl der Störungen in einem bestimmten Zeitraum kann als \textsc{Poisson}-verteilt angesehen werden. Wie groß ist die Wahrscheinlichkeit, dass in einer 8-stündigen Schicht mehr als 2 Störungen auftreten?
+
+Lösung: $X \dots$ Anzahl der Störungen in 8 h\\
+$X \in P(\lambda)$ mit $\lambda = EX= 8 \cdot 0,2 = 1,6$
+
+$P(X>2) = 1- P(X \leq 2) = 1 - (p_0 + p_1 + p_2)$\\*
+$=1-(\frac{1,6^0}{0!} + \frac{1,6^1}{1!} + \frac{1,6^2}{2!} ) e^{-1,6} = 0,2166 \approx 22 \%$
+
+\item Weitere diskrete Verteilungen
+    \begin{itemize}
+    \item diskrete gleichmäßige Verteilung \[P(X = x_m) = \frac{1}{n}, m =1,2, \dots,n\], z.B. Augenzahl beim Werfen mit einem idealen Würfel $n=6$
+    \item negative Binomialverteilung (Parameter $r \in \mathbb{N}^*, p \in (0;1))$
+    \[ P (X=m) = \binom{m + r -1}{m} (1-p)^m \cdot p^r, m = 0,1,2,\dots \] $= \binom{-r}{m} \cdot (p-1)^m p^r$\\
+    $X$ \dots Anzahl der Misserfolge $(\bar{A})$ vor dem $r$-ten Erfolg $(A)$ beim \textsc{Bernoulli}-Schema bei unbeschränkter Zahl der Wiederholungen, dabei $P(A) = p$
+    \[ EX = \frac{(1-p) r}{p} \]
+    \item speziell $r=1 \curvearrowright$ geometrische Verteilung\\*
+    $X$ \dots Anzahl der Misserfolge vor dem ersten Erfolg beim \textsc{Bernoulli}-Schema
+    \[p_m = P(X=m) = (1-p)^m \cdot p, m = 0,1,2,\dots \]
+    \end{itemize}
+
+\subparagraph{Diskussion} $\sum\limits_{m=0}^{\infty} p_m = \underbrace{\sum\limits_{m=0}^\infty (1-p)^m}_{\text{geom. Reihe mit q=1-p, An.Gl} a=p, s= \frac{a}{1-p} = 1} p = \frac{p}{1-(1-p)} = 1 $
+\end{enumerate}
+\subsection{Stetige Verteilungen}
+\subsubsection{Dichtefunktion, Erwartungswert, Streuung}
+\subparagraph{Definition 8} Eine ZG $X$ heißt stetig verteilt, wenn sie alle Werte aus einem Intervall annehmen kann und eine sogenannte Dichtefunktion $f_X (x) \geq 0$ mit 
+\[ F_X (x) = \int\limits_{-\infty}^x f_X (t) \, dt\] existiert. ($X$ ist stetige ZG)
+
+\subparagraph{Diskussion}
+\begin{enumerate}
+\item Dichte $f_X (x) = F_X' (x) \quad f_X (x) \geq 0$\\*
+$\int\limits_{-\infty}^\infty f_X (x) \, dx = 1$
+\item Es gilt $P(a \leq X \leq b ) = F_X(b) - F_X (a) = \int\limits_a^b f_X(x) \, dx$ insbesondere gilt $P(X=a) = 0 \quad \forall a \in \mathbb{R}$
+\end{enumerate}
+
+\subparagraph{Definition 9} Es sei $X$ eine stetige ZG mit der Dichte $f(x)$. Dann werden analog Def. 4 erklärt:
+$EX = \int\limits_{-\infty}^\infty x f(x)\, dx, \; D^2X = \int\limits_{-\infty}^\infty (x-EX)^2 f(x) \, dx$
+
+Bemerkung: Für eine beliebige Funktion $g(x)$ gilt:\\*
+$E g (x)= \int\limits_{-\infty}^\infty g(x) f(x) \, dx$
+
+
+
+\subsubsection{Spezielle stetige Verteilungen}
+
+\begin{enumerate}
+\item Normalverteilung (\textsc{Gauss}-Verteilung)
+\paragraph{Definition 10} Die ZG $X$ heißt normalverteilt mit den Parametern $\mu$ und $\sigma^2 (\mu \in \mathbb{R}, \sigma > 0)$, wenn sie die Dichte \[f(x) = \frac{1}{\sqrt{2\pi} \sigma} e^{- \frac{(x-\mu)^2}{2 \sigma^2}}, \quad x \in \mathbb{R}\] besitzt.\\*
+Kurzschreibweise: $X \in N (\mu,\sigma^2)$
+
+\subparagraph{Diskussion}
+    \begin{enumerate}
+    \item Es gilt \[ EX = \mu ,D^2X = \sigma^2\]
+    \item Verteilungsfunktion ist nicht in geschlossener Form darstellbar (Integraldarstellung bzw. unendliche Reihe)
+    \item Es gilt: \begin{equation}\label{2321} X \in N(\mu,\sigma^2) \Rightarrow Z:= \frac{X-\mu}{\sigma} \in N (0;1)\end{equation}
+    
+    \begin{itemize}
+    \item Es sei $\Phi (x)$ die VF der sogenannten standardisierten Normalverteilung (NV) $N(0,1)$.
+    \item $\Phi (x)$ ist tabelliert.
+    \item Jede beliebige NV lässt sich wegen (\ref{2321}) mit Hilfe der $\Phi$-Funktion ausdrücken
+    \item Eigenschaften der $\Phi$-Funktion:
+    \[ \Phi(x) = \frac{1}{2}, \quad \Phi(-x) = 1-  \Phi (x)\]
+    
+    \end{itemize}
+
+\item Es sei $X \in N (\mu,\sigma^2)$. Dann gilt:
+    \begin{enumerate}
+    \item $F_X(x) = \Phi ( \frac{x-\mu}{\sigma})$
+    \item $P(a \leq X \leq b) = \Phi ( \frac{b-\mu}{\sigma}) - \Phi ( \frac{a- \mu}{\sigma})$
+    
+    speziell: $P(X \geq a) = 1 - \Phi (\frac{a-\mu}{\sigma})$\\*
+    $P(X \leq b) = \Phi (\frac{b - \mu}{\sigma})$
+    \item $P(\lvert X - \mu \rvert \leq a) = 2 \Phi (\frac{a}{\sigma}) -1 \quad (a > 0)$
+    
+    speziell \\
+    \begin{align*}
+    a &= \sigma :& &P(\lvert X - \mu \rvert \leq \sigma) = 2 \Phi (1) -1 &= 0,6827 \\
+     a &= 2 \sigma :& &P(\lvert X- \mu \rvert \leq 2 \sigma) &= 0,9545\\
+     a &= 3 \sigma :& &P(\lvert X - \mu \rvert \leq 3 \sigma) &= 0,9973
+    \end{align*}
+    \end{enumerate}
+    \item Anwendung
+        \begin{itemize}
+        \item Messfehler
+        \item geometrische oder physikalische Kenngrößen von Produkten (Länge, Masse, Widerstand, \dots)
+        \item biologische Merkmale
+        \item allgemein: Summe einer großen Anzahl kleinerer unabhängiger Größen $\curvearrowright$ NV
+        \end{itemize}
+        
+    \item Vorausschau auf statistische Methoden
+        \begin{itemize}
+        \item $\begin{array}{l|cl} \text{Zufallsgröße} X  & \underbrace{\rightarrow}_{n\text{-mal beobachten}} & \text{Stichprobe }  x_1,\dots,x_n \\
+        \text{theor. Erwartungsw } \mu & \text{Schätzw. für } \mu & \bar{x} = \frac{x_1+x_2+\dots+x_n}{n} \\
+        & \text{(empirischer Erw.wert)} & \\
+        \text{theor. Streuung } \sigma^2 & \text{Schätzw. für } \sigma^2 & s^2 = \frac{1}{n-1} \sum\limits_{i=1}^n ( x_i - \bar{x})^2 \\
+         & \text{(empirische Streuung)} & \\
+        \text{(Modell)} & \text{(Beobachtung)} & \\
+         \end{array}$
+         \item \paragraph{Histogramm} \item Es existieren Testverfahren zur Überprüfung, ob eine bestimmte Verteilung vorliegt oder nicht.
+         
+         \subparagraph{Beispiel 8} Ein Drehteil besitzt einen Soll-Durchmesser von 500 mm, die Toleranzgrenzen sind 499,6 und 500,3 (alle Maße in mm). Die von der Maschine produzierten Teile besitzen in Wirklichkeit einen Durchmesser der normalverteilt mit $\mu = 500$ und $\sigma = 0,2$ ist (siehe Diskussion 7).
+         
+         Wie groß ist die Wahrscheinlichkeit, dass ein solches Teil
+            \begin{enumerate}
+            \item innerhalb der Toleranzgrenzen liegt
+            \item Ausschuss ist, d.h. dass der Durchmesser kleiner als die untere Toleranzgrenze ist?
+            \item Wie genau muss die Maschine arbeiten, d.h. wie groß darf die Standardabweichung $\sigma$ höchstens sein, damit höchstens $1\%$ der produzierten Teile Ausschuss sind? (Standardabweichung ist ein Qualitätsmerkmal der Maschine, spezifisch für jede einzelne Maschine)
+            \end{enumerate}
+            
+            Lösung: $X$ \dots Durchmesser (in mm)\\
+            $X \in N (\mu,\sigma^2), \mu = 500, \underbrace{\sigma = 0,2}_{\text{Aufg. i und ii}}$
+            \begin{enumerate}
+            \item $P(499,6 \leq X \leq 500,3) = \Phi (\frac{500,3 - 500}{0,2} ) - \Phi (\frac{499,6 - 500}{0,2} ) $\\
+            $= \Phi (1,5) - \underbrace{\Phi(-2)}_{(1-\Phi(2)} = \underline{\underline{0,91044}}$
+            \item $P(X \leq 499,6 ) = F_X (499,6) = \Phi ( \frac{499,6-500}{0,2}) = \Phi (-2) = 1 - \Phi(2)= \underline{\underline{0,02275}}$
+            \item             $f(x) = \frac{1}{\sqrt{2\pi} \sigma} \exp{(-\frac{1}{2} (\frac{x-\mu}{\sigma})^2 )}$ mit $\mu = 500$\\
+            $N(500,\sigma^2 ) \text{ mit } P(X <499,6 ) = 0,01$ Gesucht: $\sigma$\\*
+            $X$ mit $\mu$ zentrieren: $X-\mu$ dann mit $\sigma$ normieren $\frac{X-\mu}{\sigma} $\\*
+            (X ist standardverteilt, $N(0,1)$-Verteilung, Dichte $\varphi(x) = \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2}}$
+            $P(x < 499,6) = P(\frac{X-500}{\sigma} \leq \frac{499,6 - 500}{\sigma}) = \Phi (\frac{-0,4}{\sigma}) = \int\limits_{-\infty}{\frac{-0,4}{\sigma}} \varphi (x) \, dx = 0,01$\\
+            Umkehrfunktion: $\frac{-0,4}{\sigma} = \Phi^{-1} (0,01)$\\
+            $\Phi^{-1} (0,01) = $ Quantil der Ordnung $0,01 = \underbrace{z_\alpha}_{<0}, \alpha = 0,01$
+            \end{enumerate}
+        \end{itemize}
+        
+        \subparagraph{Quantil der Ordnung $\gamma$} Kurz $x_\gamma , \; 0 < \gamma < 1$
+        
+        Definition: $P(X < x_\gamma ) \leq \gamma \leq P(X \leq x_\gamma)$\\
+        stetige Verteilung: $P(X \leq x_\sigma ) = F(x_\gamma) = \gamma$
+    \end{enumerate}
+
+\item Exponentialverteilung
+\paragraph{Definition 11} Die ZG $X$ heißt exp.-verteilt mit dem Parameter $\lambda (\lambda > 0)$, wenn sie die Dichte 
+\[ f(x) = \left \{ \begin{array}{lr} \lambda \cdot e^{-\lambda \cdot x} & x \geq 0 \\ 0 & x <0 \\ \end{array} \right. \] besitzt. Kurz $X \in E(\lambda)$\\
+Verteilungsfunktion $F(X) = \int\limits_{-\infty}^{x} f(t) \, dt = \left \{ \begin{array}{lr} 1 - e^{-\lambda \cdot x} & x \geq 0 \\ 0 & x <0 \\ \end{array} \right. $
+
+
+\subparagraph{Diskussion} 
+    \begin{enumerate}
+    \item Es gilt $E(X) = \frac{1}{x}, D^2 (X) = Var(x) = \frac{1}{x^2}$ d.h. Erwartungswert und Standardabweichung stimmen stets überein: $\frac{1}{x}$
+    \item Intervallwahrscheinlichkeit $P(a\leq X \leq b) = F(b) - F(a) = e^{-x \cdot a} - e^{-x \cdot b}$
+    \item Anwendungen: Bedienungstheorie, Zuverlässigkeitstheorie, zufällig. Lebensdauer, Bedienzeiten, Zeit zwischen zwei ankommenden Forderungen in einem Bedienungssystem (auch ankommende Aufträge, Zugriffe, \dots)\\
+    Die $X_i$ sind stochast. unabhängige ZG, $X_i \in E(\lambda)$ wenn $Y$ die zufällige Anzahl der Zugriffe im Zeitintervall $\Delta T$ ist, dann hat $Y$ eine Poissionverteilung $Y \in P(\lambda \cdot \Delta t)$. Mittlere Anzahl der Zugriffe im Zeitintervall $\Delta t$ ist $E(Y) = \lambda \cdot \Delta t$, Auskunftsrate $= \lambda$ (Anzahl der Zugriffe pro Zeiteinheit)\\
+    Mittlere Zeitdauer zwischen zwei Forderungen $E(X_i) = \frac{1}{x}$ (Zugriffe, Auskünfte)
+    
+    \subparagraph{Beispiel 9} Ein System bestehe aus drei parallel geschalteten Elementen die unabhängig voneinander arbeiten.\\
+    Aus statisk. Untersuchungen sei bekann, dass die Lebensdauer der einzelnen Elemente exp.-verteilt sind mit dem Erwartungswert 1000 h.
+    
+        \begin{enumerate}
+        \item Wie groß ist die Wahrscheinlichkeit, dass ein einzelnes Element höchstens 500 h funktioniert?
+        \item Wie groß ist die Wahrscheinlichkeit, dass das System mindestens 500 h funktioniert?
+        \item Für welchen Zeitraum beträgt die Zuverlässigkeit des Systems 99\% ?
+        \end{enumerate}
+        Lösung: $X_i$ \dots Lebensdauer des $i$-ten Elements $(i = 1,2,3)$\\
+        $X_i \in E(\lambda), \lambda = \frac{1}{E(X_i)} = \frac{1}{1000} = 0,001\, h^{-1}$\\
+        $X$ \dots Lebensdauer des Systems\\
+        $F(x) = P(X \leq x) = P(\{ X_1 \leq x\} \cap \{X_2 \leq x\} \cap \{ X_3 \leq x \})$\\
+        $= P(X_1 \leq x) \cdot P(X_2 \leq x) \cdot P(X_3 \leq x)$\\
+        $= F_{X_1} (x) \cdot F_{X_2} (x) \cdot F_{X_3} (x) = (1- e^{-\lambda \cdot x})^3, x \geq 0$
+        \begin{enumerate}
+        \item $P(X_i \leq 500) = 1 - e^{-\lambda \cdot 500} = 1 - e^{-0,5} \approx 0,3935$
+        \item $P(X_i \geq 500 ) = 1 - P(X_i < 500 ) = 1 - P(X_i \leq 500) = e^{-0,5}$\\
+        für das System: $P(X \geq 500) = 1- P(X \leq 500) = 1 - (1-e^{-0,5})^3 \approx 0,9391$
+        \item Ansatz: $P(X \geq t) = 0,99$, gesucht $t$ (System soll mindestens bis Zeitpunkt $t$ funktionieren), $\lambda = 0,001$\\
+        analog ii) statt 500 jetzt t $\Rightarrow P(X \geq t ) = 1 - (1- e^{-\lambda \cdot t})^3 = 0,99$\\*
+        $\curvearrowright 0,01 = (1-e^{-\lambda t})^3$\\
+        $\sqrt[3]{0,01} = 1-e^{-\lambda t}$
+        $t= - 1000 \cdot \ln{(1- \sqrt[3]{0,01})} \approx 242,6 \, h$
+        
+        \end{enumerate}
+        
+    \end{enumerate}
+    \item Chi-Quadraht-Verteilung
+
+\end{enumerate}
+
+
+\subsection{Mehrdimensionale Verteilungen}
+\subsubsection{Zufällige Vektoren}
+\paragraph{Definition 12} \[ \vec{X} = \begin{pmatrix} X_1 \\ X_2 \\ \vdots \\ X_n \\ \end{pmatrix} = (X_1,X_2,\dots,X_n)^T\] heißt
+\begin{enumerate}
+\item diskreter Zufalls-Vektor, wenn alle Komponenten $X_1,\dots,X_n$ Zufallsgrößen sind.
+\item stetiger Zufalls-Vektor, wenn die Komponenten eine gemeinsame Dichte $f_X (x_1,x_2,\dots,x_n) \geq 0$ besitzen, d.h. $\mathcal{P} (\vec{X} \in B \in \mathbb{R}^n) = $,\\*
+$B=\{ \underbrace{\int \dots \int}_{n\text{-faches Integral}} f_X (x_1,\dots,x_n) \, dx_1 \dots dx_n \}$
+
+$B= \{ (x_1,x_2)^T | a \leq x_1 \leq b, c \leq x_2 \leq d \}: \mathcal{P}(\vec{X} \in B) = \int\limits_{x_1 = a}^{b} \int\limits_{x_2 = c}^{d} f_{\vec{X}} (x_1,x_2) \, dx_1 \, dx_2$
+\end{enumerate}
+
+\subparagraph{Diskussion} $n=1$: Verteilungstabelle:\\
+$\begin{array}{c|cccc}
+& x_0 & x_1 & x_2 & \dots \\ \hline
+& p_0 & p_1 & p_2 & \dots \\
+\end{array}$ mit $p_n = \mathcal{P} (X = x_k)$\\
+$\mathcal{P} (a \leq X \leq b) = \sum\limits_{k:a \leq x_k \leq b} p_k$\\
+
+Verteilungstabelle als stochastische Matrix $\underline{P}:\sum\limits_i \sum\limits_j p_{ij} = 1 \wedge p_{ij} \geq 0$
+
+ Randverteilungen: $\mathcal{P} (X=x_i) = \mathcal{P} ( \{ X = x_i \} \cap \{Y \text{ bel.}\} ) = \mathcal{P} ( (\begin{pmatrix} X & Y \\ \end{pmatrix} = \begin{pmatrix} x_i & y_j \end{pmatrix}, i \text{ fest}, j=0,1,2,\dots) = \sum\limits_j p_{ij} = p_{i.}$, bzw. für $Y : \mathcal{P} ( Y = y_j ) = p_{.j}$
+
+Randverteilungen für stetige Komponenten: Randdichte für X 
+$X  f_X(x) = \int\limits_{y= - \infty}^\infty f_X (x,y) \, dy$ bzw. $Y: f_Y (y) = \int\limits_{x=-\infty}^\infty f_X (x,y) \, dx$
+
+aus bekannten Randverteilungen von $X$ und $Y$ (Fall $n=2$) läßt sich i. Allg. nicht die Verteilung des Vektors $\underline{X} = \begin{pmatrix} X \\ Y \\ \end{pmatrix}$ rekonstruieren.
+
+z.B. diskrete Größen, aus $p_{0.}, p_{1.}, \dots,$ und $p_{.0},p_{.1}, p_{.2}, \dots$ bekommt man i. Allg. nicht die Matrix $\underline{P} = (p_{ij})$ (Der Autor entschuldigt sich für die konfusen Mitschriften während der Vertretung des regulären Dozenten )%TODO
+
+\subparagraph{Beispiel 10} $X$ \dots zufäll. Anzahl der techn. Durchsichten eines PKW eines best. Typs zwischen 0 und 15000 km.
+$Y$ \dots zufäll. Anzahl der Motorproblemen dieser PKW zwischen 0 und 15000 km.
+
+
+\subsubsection{statistische Kennzahlen für Vektoren: Kovarianz und Korrelationskoeffizienten, sowie stochstische Unabhängigkeiten von ZG}
+
+\paragraph{Definition 13} $\vec{X} = \begin{pmatrix} X \\ Y \\\end{pmatrix}$ sei ein zufällg. Vektor. Dann heißen die Kennzahlen
+\[ \text{cov} (X,Y) := E[(X-E(X)) \cdot (Y-E(Y)) ] = E(X\cdot Y) - (EX) \cdot (EY)\]
+\[ \varrho_{(x,y)} := \frac{\text{cov} (X,Y)}{D(X) \cdot D(Y)}\]
+$X$ und $Y$ heißen unkorreliert, wenn $\varrho (X,Y) = 0$ gilt. Beweis: Es gilt stets $-1 \leq \varrho(X,Y) \leq 1$.
+
+\paragraph{Definition 14} $\underline{X} = \begin{pmatrix} X \\ Y \\ \end{pmatrix}$ zufäll. Vektor. $X$ und $Y$ heißen stochast. unabhängig, wenn für bel. Intervalle $I_1$ für $X$ und $I_2$ für $Y$ gilt: $\mathcal{P} ( \underbrace{ \{ X \in I_1 \} \cap \{ Y \in I_2 \}}_{\text{gemeins. Verteil.}}) = \underbrace{\mathcal{P} (X \in I_1) \cdot \mathcal{P} (Y \in I_2)}_{\text{Faktorisierung (Randvertl. gen.)}}$\\
+d.h. diskrete ZG: für alle Gitterpunkte $\begin{pmatrix} X_i \\ Y_j\\ \end{pmatrix} : p_{ij} = p_{i.} \cdot p_{.j} \quad \forall i,j$ bzw. stetige ZG, gemein. Dichte $f_X (x,y) = f_X (x) \cdot f_Y (y)  \quad \forall \begin{pmatrix} X \\ Y \\ \end{pmatrix} \in \mathbb{R}^2$
+
+Bemerkung: Stochast. Unabhängigkeit $\Rightarrow$ Unkorreliertheit. Unkorreliert $\Rightarrow$ Stochast. Unabhängigkeit nur bei Normalverteilung.
+
+Diskussion: $\text{cov} (X,Y) = E[(X-E(X)) \cdot (Y-E(Y)) ]$\dots Kovarianz\\
+Varianz $ = \{ D^2 (X) = E[(X-E(X))^2] = E[(X-E(X)) \cdot (X-E(X))], D^2(Y) = E[(Y-E(Y))^2] = \dots \}$
+
+Eigenschaften mit dem "`E-Operator"':
+\begin{enumerate}
+\item $E(const.) = const.$ kurz $E(c) = c$
+\item $E(\alpha \cdot X + \beta \cdot Y) = \alpha \cdot E(X) + \beta \cdot E(Y) \quad \alpha , \beta \in \mathbb{R}$, feste Zahlen
+\item $E(X_1+X_2+\dots+X_n) = E(X_1) + \dots + E(X_n) = \sum\limits_{k=1}^{n} E(X_k)$
+\end{enumerate}
+
+
+D-Operator:
+\begin{enumerate}
+\item $D^2 (X) = 0 \Leftrightarrow \exists c \in \mathbb{R}: \mathcal{P} (X=c) = 1$ keine Streuung
+\item $D^2 (\alpha \cdot X) = a^2 \cdot D^2(X), \alpha \in \mathbb{R}$ fest vorgegeben
+\item $D^2 (X \pm Y) = D^2(X) + D^2 (Y) \pm 2 \cdot \text{cov} (X,Y)$
+\item $X_1,X_2,\dots,X_n$ paarweise unkorreliert: $D^2(X_1 + X_2 + \dots) = \sum\limits_{k=1}^{n} D^2 (X_k)$
+\end{enumerate}
+%TODO2014-11-13 und -14
+
+\subparagraph{Diskussion} $\varrho (x,y)$ ist ein Maß für die lineare Abhängigkeit von $X$ zu $Y$. Der Grad des linearen Zusammenhangs wird über das Bestimmtheitsmaß \[B= \varrho^2 (x,y)\] beschrieben. $B=1 = 100 \%$ bedeutet strenger linearer Zusammenhang, hingegen $B=0$ bedeutet kein linearer Zusammenhang. (Weder linearer noch nicht linearer Zusammenhang), $X$ und $Y$ stochastisch unabhängig.
+
+Zur Geraden $y=a_1 \cdot x + a_0$. Es gilt für die optimale Gerade:
+$a_1 = \frac{\partial Y}{\partial X} \cdot \varrho (x,y) = \frac{\text{cov} (X,Y)}{D(Y) D(X)} \cdot \frac{\partial Y}{\partial Y} = \frac{\text{cov} (X,Y)}{D^2 (X)} \text{ da } \partial X = D(X), \partial Y = D(Y)$ und $a_0 = E(Y) - a_1 \cdot E(X)$.
+Die optimale Gerade heißt Regressionsgerade von $Y$ bzgl $X$.\\
+Es sei $g(X,Y)$ eine zufällige Funktion $X$ und $Y$, z.B. $g(s,t) = s^2 \cdot t^3 \Rightarrow g(X,Y) = X^2 \cdot Y^3$ usw.
+
+Was ist dann E(g(X,Y))?\\
+Diskrete ZG: Wahrscheinlichkeitsmassen $p_{ij}$ auf den Gitterpunkten $\begin{pmatrix} x_i \\ y_i \\ \end{pmatrix} : E(g(X,Y)) = \sum\limits_i \sum\limits_j g(x_i,y_i) \cdot p_{ij}$\\*
+Stetige ZG: gemeinsame Dichtefunktion: $f_{\vec{X}} (x,y) : E(g(X,Y)) = \int\limits_{X=-\infty}^{\infty} \int\limits_{Y= - \infty}^{\infty} f_{\vec{X}} (x,y) \cdot g(x,y) \, dy dx$
+
+\paragraph{Definition 15} Es sei $\vec{X} = (X_1,X_2,\dots,X_n)^T$
+
+\begin{enumerate}
+
+\item in Verallgemeinerung der Streuung einer ZG $X$ jetzt die Kovarianzmatrix $\vec{K}_{\vec{X}} := E((\vec{X} - \vec{\mu} ) \cdot ( \vec{X} - \vec{\mu})^T)$
+\end{enumerate}
+
+$\vec{\mu} = E(\vec{X})$
+
+%Hier fehlt z.B. der Zentrale Grenzwert Satz
+
+subparagraph{Beispiel 14} Die ZEit, die zur Überprüfung bestimmter elektronischer Bauelemente benötigt wird, beträgt im Mittel 1,248 min, Standardabw. sei 0,54635 min. (Grundlage Stichprobenerhebung) vgl. Aufgabe (3) 3 der Aufg.  sammlung.
+\begin{enumerate}
+\item Wie großt ist die Wkt., dass in 130 min genau 100 Bauelemente geprüft werden können?
+\item Welche Anzahl von Bauelementen kann in 2 Stunden mit mindests. 95\% Sicherheit geprüft werden?
+\end{enumerate}
+
+Lösung Sei $X_i$ die zufällige individuelle Prüfzeit des ersten Bauelements (Wkt.-verteilung von $X_i$ muss nicht bekannt sein. Ausreichend ist die Kenntnis von $E(X_i)$ und $D^2(X_i)$)\\
+Sei $\mu = E(X_i)= 1,248, D^2 (X_i) = \sigma_x^2 = 0,54635^2 \, [ \text{min}^2 ]$
+Vorraussetzung: individuelle Prüfzeiten stochast. unabhängig.
+
+Gesamtprüfzeit $S_{100} = \sum\limits_{i=1}^{100} X_i \underbrace{\approx}_{\text{ZGWS}} \in N(n \mu, n \cdot \sigma_x^2)$
+
+\begin{itemize}
+\item $P(S_{100} \leq 130) \approx \Phi (\frac{130-n\cdot \mu}{\sqrt{n \cdot \sigma_x^2}}) = \Phi (\frac{130 - 100 \cdot 1,248}{\sqrt{100} \cdot 0,54635}) = 0,83 = 83 \%$. Die geforderte Überprüfung von 100 Bauelementen in der vorgegebenenen Zeit wird mit einer Wkt. von 83 \% erfüllt. In 17 \% der angeordneten Überprüfungen von 100 Bauelementen wird die Vorgabezeit 130 min überschritten werden.
+\item Vorgabezeit von 130, auf 120 min heruntergesetzt, Vorgabewkt. von 83 \% auf 95 \% erhöhen. Welche Anzahl $n$ an Bauelementen darf höchstens noch vorgegeben werden. Ansatz:
+$P(S_n \leq 100) \geq 0,95 \Leftrightarrow \Phi (\frac{120 - n \cdot \mu}{\sqrt{n \cdot \sigma_x^2}}) \geq 0,95 = \Phi (z_{0,95})$
+
+Die Verteilungsfunktion $n= \Phi (z)$ ist streng monoton wachsend $\Rightarrow \frac{120- n \cdot \mu}{\sqrt{n} \cdot \sigma_x} \geq z_{0,95} = 1,645 \Rightarrow \underbrace{120 - n \cdot \mu}_{+} \geq \underbrace{z \cdot \sqrt{n} \cdot \sigma}_{+} \Rightarrow (120-n \cdot \mu )^2 \geq z^2 \cdot n \sigma^2$\\
+$n^2 \cdot \mu^2 - 240 n \cdot \mu + 120^2 -z^2 \cdot n \cdot \sigma^2 \geq 0 \Rightarrow n^2 + \frac{z^2 \cdot \sigma^2 - 240 \mu}{\mu^2} \cdot n + (\frac{120}{\mu}^2 \geq 0 \rightarrow n_{1,2} = - \frac{p}{2} \pm \sqrt{\frac{p^2}{x} - q}$ (mit $n > 0$) Lösung $n \approx 89,3 \Rightarrow n \leq 89$
+\end{itemize}
+
+
+\section{deskriptive Statistik: Grundbegriffe}
+\subsection{Merkmale}
+\paragraph{Merkmal:} zufällige Größe ($X$),, die beobachtet wird
+\paragraph{Merkmalsausprägungen:} konkrete Werte von $X$, die in der Datenerhebung auftreten können
+
+Klassifikation der Merkmale
+\begin{itemize}
+\item \begin{itemize}
+\item quantitative Merkmale
+\item qualitative Merkmale (verbal deshalb in Zahlen kodieren)
+\end{itemize}
+\item \begin{itemize}
+\item Nominalskala (keine Ordnungsstruktur wie größer als) z.B. Geschlecht, Konfession
+\item Ordinalskala (Rangordnung) z.B. Schulnoten
+\item metrische Skala: Rangordnung und zusätzlich sind die Abstände zwischen den Ausprägungen sinnvoll interpretierbar, z.B. Einkommen
+\end{itemize}
+\item \begin{itemize}
+\item diskretes Merkmal
+\item stetiges Merkmal
+\item quasistetiges Merkmal (z.B. Digitalisierung)
+\end{itemize}
+\end{itemize}
+
+
+\subsection{Grundgesamtheit und Stichprobe}
+\paragraph{Grundgesamtheit (machnmal Grundgesamtheit X): beinhaltet alle für die statist. Erhebung (Datensammlung) relevanten Informationen}
+
+\paragraph{Definition 1} Eine ZGR X, durch die ein bestimmtes Merkmal beschrieben wird, heißt Grundgesamtheit X
+
+\paragraph{Diskussion} 
+\begin{enumerate}
+\item Die GG $X$ ist wahrscheinlichkeitstheoretisch vollständig diskretisierbar, z.B. wenn deren Verteilungsfkt. $n = F(x) = P(X \leq x)$ (eindim.), mehrdim. analog (Zufallsvector $\vec{x}$ betrachten)
+\end{enumerate}
+
+
+\subparagraph{Beispiel 5} 200 CD-Rohlinge eines bestimmten Fabrikats wurden einer Qualitätsprüfung unterzogen. Dabei erwiesen sich 12 als unbrauchbar. Man gebe zum Konfidenzniveau 95 \% einen konkreten Vertrauensbereich für den unbekannten Ausschussanteil $p$ dieser CD-Rohlinge an.
+
+Lösung: $n=200, w_n = \frac{12}{200} = 0,06$\\
+$ \curvearrowright n_p (1-p) \approx nw_n (1-w_n) = 200 \cdot 0,06 \cdot 0,94 = 11,28 >9$\\
+Näherung (a) anwendbar\\
+$1-\alpha = 0,95 \curvearrowright  \alpha = 0,05 \curvearrowright z = z_{1-\frac{\alpha}{2}} = z_{0,975} = 1,96$
+
+\paragraph{Diskussion}
+\begin{itemize}
+\item Länge des Konfidenzintervalls (für großes $n$): $b-a \approx \frac{2z \cdot \sqrt{p(1-p)}}{\sqrt{n}} \leq \frac{2}{\sqrt{n}}$ Verdopplung der Genauigkeit erfordert 4-fachen Stichprobenumfang
+\item Für kleine $n$ siehe Merkblatt Konfidenzintervalle
+\end{itemize}
+
+\section{Testtheorie}
+Problem:
+\begin{enumerate}
+\item Geg. Stichprobe $X_1,\dots,X_n$ aus GG $X$
+\item Aufgabe: Annahmen (Hypothesen) über die unbekannte Verteilung der GG $X$ überprüfen
+\end{enumerate}
+\begin{itemize}
+\item Fall: Verteilungsfunktion: bis auf Parameter $\Theta$ bekannt, Hypothese betrifft nur Parameter $\Theta$ (z.B. $\Theta = \Theta_0$, wobei $\Theta_0$ \dots Sollwert) Parametertests(vgl. 3.1.)
+\item Verteilungstyp unbekannt, nicht parametrische Tets (vgl. 3.2)
+\end{itemize}
+
+\paragraph{Test-Prinzip} Entscheidung zwischen der Hypothese ($H_0$) und einer sogenannten Alternative ($H_1$)
+
+\paragraph{Vorgehensweise}
+\begin{itemize}
+\item Vorgabe einer Irrtumswahrscheinlichkeit $\alpha \in (0,1), \alpha$ klein (oft 0,05, auch 0,01, 0,1) Wahrscheinlichkeit $H_0$ abzulehnen obwohl $H_0$ richtig
+\item Nullhypothese $H_0$ und Alternativhypothese $H_1$ angeben.
+\item Konstruktion einer Testgröße $T = T(X_1,\dots,X_n)$ deren Verteilung bzw. Gültigkeit  von $H_0$ bekannt ist
+\item Angabe muss kritischen Bereichs $K$ derart, dass unter $H_0$ gilt: $P (T \in K) \leq \alpha$ Wahrscheinlichkeit von $K$ ist nicht eindeutig. $K$ soll die Werte enthalten die für die Alternative $H_1$ sprechen
+\item Entscheidungsregel: Gilt für die konkrete Stichprobe  $x_1,\dots,x_n: t:= T(x_1,\dots,x_n) \in K$, dann wird $H_0$ zugunsten von $H_1$ abgelehnt, anderenfalls ist gegen $H_0$ nichts einzuwenden ($H_0$ ist damit nicht bestätigt)
+\end{itemize}
+
+\subsection{Parametertests}
+\subsubsection{Grundbegriffe, allgemeine Vorgehensweise}
+\paragraph{Beispiel 1} (Zur Demonstration der allg. Vorgehensweise)\\
+$X$ \dots Flüssigkeitsmenge, die von einem Abfüllautomaten pro Flasche angegeben wird [ ml ] , Sollwert $\mu_0 = 500, X \in N (\mu,\sigma^2), \mu$ unbekannt, $\sigma^2$ bekannt ($\sigma = 5$). Zu überprüfen ist, ob der Sollwert $f$ ein Mittel einhalten wird. Irrtumswahrscheinlichkeit 5 \%. Eine Stichprobe vom Umfang $n=20$ ergab $\bar{x} = 498 ml$. 
+
+Lösung:
+\begin{enumerate}
+\item $\alpha = 0,05$
+\item \begin{itemize}
+    \item $H_0 : \mu = \underbrace{500}_{\mu_0}$
+    \item Für die Alternative gibt es 3 Varianten, welche sinnvoll ist, hängt vom Anwender ab
+    \end{itemize}
+    \begin{enumerate}
+    \item $H_1:  \mu \neq 500$ : (z.B. für unabhängigen Beobachter, Gutachter, Abweichung nicht oben und unten kritisch)
+    \item $H_1' : \mu > 500$ (für Betreiber des Automaten wichtig, zuviel abgefüllt!)
+    \item $H_1'' : \mu < 500$ (für den Verbraucher wichtig)
+    \end{enumerate}
+    
+\item Testgröße $T =  \frac{\bar{X} - \mu_0 }{\sigma} \sqrt{n} \underbrace{\in}_{\text{falls } H_0} N (0;1)$ konkreter Wert $t= \frac{498 - 500}{5} \sqrt{20} = -1,78$
+\item Krit. Bereich %TODO 2015-01-07
+\item Entscheidung
+\begin{enumerate}
+\item $t \notin K \curvearrowright$ gegen $H_0$ nichts einzuwenden
+\item $t \notin K \curvearrowright$ gegen $H_0$ nichts einzuwenden
+\item $t \in K \curvearrowright H_0$ wird zugunsten von $H_1'' : \mu < 500$ abgelehnt, Wktk. einer Fehlentscheidung 5 \% (statistische Sicherheit $1-\alpha = 95 \%$
+\end{enumerate}
+\end{enumerate}
+
+\paragraph{Diskussion}
+\begin{enumerate}
+\item Bei einseitiger Fragestellung wird oft folgende Form der Nullhypothese verwendet:
+Variante 
+\begin{enumerate} 
+\item $H_0 : \Theta \leq \Theta_0, H_1 : \Theta > \Theta_0$
+\item $H_0 : \Theta \geq \Theta_0, H_1 : \Theta < \Theta_0$
+\end{enumerate}
+Dann Verteilung von $T$ nur bei Gültigkeit der Gleichheitszeichen bekannt (i.A.) vgl. Schritt 3, Im jedem Fall ist aber $P(T \in K) \leq \alpha$ (unter $H_0$)
+
+\item Es besteht ein enger Zusammenhang zwischen Konfidenzschätzungen und Paramtetertests
+Bsp.: Test (zweiseitig), $X \in N (\mu,\sigma^2), \Theta = \mu, \sigma^2$ bekannt,
+$H_0: \mu = \mu_0, H_1 : \mu \neq \mu_0 \Leftrightarrow$ (zweiseitiges Konfidenzintervall für $\mu$
+
+Es gilt $\mu_0 \notin I \Leftrightarrow T \in K$
+D.h. Ablehnung der Nullhypothese genau dann, wenn das Konfidenzintervall den Sollwert $\mu_0$ nicht überdeckt
+
+\item Mögliche Fehler bei Tests:
+    \begin{enumerate}
+    \item Fehler 1. Art $H_0$ wird abgelehnt, obwohl $H_0$ richtig
+    \item Fehler 2. Art $H_0$ wird nicht abgelehnt, obwohl $H_0$ falsch
+    \end{enumerate}
+
+\item Die Wkt. für das Auftreten eines Fehlers 1. Art ist höchstens gleich der Irrtumswkt $\alpha$
+    \begin{itemize}
+    \item $\alpha$ heißt auch Signifikanzniveau (es wird getestet ob wesentliche) Abweichungen vom Sollwert auftreten
+    \item Ein Test gemäß 1-5 heißt auch Signifikanztest
+    \end{itemize}
+
+\item Analyse des Fehlers 2. Art am Beispiel
+\[ X \in N (\mu,\sigma^2), \sigma^2 \text{ bekannt, } H_0 : \mu \leq \mu_0, H_1 : \mu > \mu_0\]
+$\curvearrowright$ krit. Bereich $K= (z_{1-\alpha}; \infty)$
+
+    \begin{itemize}
+    \item Für beliebiges $\mu \in \mathbb{R}$ werden erklärt\\*
+    \begin{tabular}{c|c} 
+    Operationscharakteristik & $OC(\mu) := P(H_0 \text{ wird nicht abgelehnt}) = P(T \notin K)$\\ \hline
+    Gütefunktion & $g(\mu) := P(H_0 \text{  wird abgelehnt}) = 1-OC(\mu) = P(T\in K)$\\
+    \end{tabular}
+    \item Es gilt: $\bar{X} \in N(\mu; \frac{\sigma^2}{n}) \curvearrowright T= \frac{\bar{X} - \mu_0}{\sigma} \sqrt{n} \in N ( \frac{\mu-\mu_0}{\sigma} \sqrt{n},1) \curvearrowright OC(\mu) = P(T \notin K) = P (T \leq z_{1-\alpha})= \Phi (z_{1-\alpha} - \frac{\mu - \mu_0}{\sigma} \sqrt{n})$
+    
+    \item OC ist von $n$ abhängig. Es gilt für jedes $\mu > \mu_0 (\equiv H_1) \lim\limits_{n \to \infty} OC(\mu) = 0$
+    \item Der Stichprobenumfang $n$ lässt sich so bestimmen, dass für $\mu \geq \mu_1 > \mu_0$ gilt: $OC(\mu) \leq \beta : OC(\mu) \leq \beta \Leftrightarrow z_{1-\alpha} - \frac{\mu-\mu_0}{\sigma} \sqrt{n} = \Phi^{-1} (\beta) = z_\beta = -z_{1-\beta}$\\
+    $\curvearrowright n \geq (\frac{z_{1-\alpha} + z_{1-\beta}}{\mu_1 - \mu_0} \cdot \sigma )^2$\\*
+    $\mu_1$ und $\beta$ sind vorgebar, bei Überschreitung von $\mu_1$ (wesentliche Überschreitung des Sollwerts) beträgt die Wkt für Fehler 2. Art höchstens $\beta$, für unwesentliche Überschreitungen (zwischen $\mu_0$ und $\mu_1$) trifft das nicht zu. Hier liegt die Wkt für einen Fehler 2. Art zwischen $\beta$ und $1-\alpha$.
+    \end{itemize}
+
+\item Zur Entscheidungsregel\\*
+\begin{tabular}{c|p{3cm}||p{3cm}|p{2cm}|c}
+Ergebnis & Entscheidung & Fehlentscheidung falls & Wkt. Fehlentscheidung & stat. Sicherheit \\ \hline
+$t \in K$ & $H_0$ zugunsten von $H_1$ ablehnen & $H_0$ richtig & $\leq \alpha$ (Fehler 1. Art) & $\geq 1 - \alpha$ \\ \hline
+$t \notin K$ & gegen $H_0$ nicht einzuwenden & $H_0$ falsch & $< 1 - \alpha$ & - \\
+\end{tabular}\\
+Bei einseitiger Fragestellung ist es zweckmäßig, die vermutete bzw. zu beweisende Aussage als Alternative zu wählen
+\end{enumerate}
+
+\paragraph{Bemerkung} Indirekter Beweis (Logik), $H_1$ ist zu beweisen, Annahme des Gegenteils $H_0$ auf Widerspruch führen $\curvearrowright H_0$ falsch, $H_1$ wahr (deterministisch, 100 \% Sicherheit)
+
+\subsubsection{Test für Erwartungswert und Streuung bei normalverteilter GG X} %3.1.2.
+Testgrößen und ihre Verteilung sowie zugehörige kritische Bereiche s. Merkblatt Parametertests
+
+\subparagraph{Beispiel} Auf einen Drehautomaten werden Zylinder hergestellt. Der Durchmesser kann als normalerweilt angesehen werden. Die Streuung $\sigma^2$ ist ein Gütemaß für den Drehautomaten. Der Hersteller des Automaten gibt an, dass die Standardabweichung $\sigma$ höchstens 0,03 mm beträgt. Der Betreiber des Automaten zweifelt dies an und möchte bei einer statischen Sicherheit von 95 \% das Gegenteil beweißen (d.h. $\sigma > 0,03$). Dazu werden von 40 herstellen Zylindern die Durchmesser kontrolliert. Es ergibt sich $\bar{x} = 50,03 mm, s=0,097 mm$. Lässt sich die Vermutung des Betriebs bestätigen?
+
+Lösung: $X^2-$ Streuungstest
+\begin{enumerate}
+\item Irrutmswkt $\alpha = 0,05$
+\item $H_0: \sigma^2 \leq \sigma_0^2, H_1 : \sigma^2 > \sigma_0^2$ (mit $\sigma_0 = 0,03$)
+\item Testgröße vgl. Merkblatt $T= \frac{(n-1)S^2}{\sigma_0^2}$, konkreter Wert $t = \frac{39 \cdot 0,037^2}{0,03^2} = 59,32$
+\item Krit. Bereich, vgl. Merkblatt $K= (X^2_{n-1,1-\alpha}; \infty ) = (X^2_{39;0,95};\infty) = (54,57;\infty)$
+\item Entscheidung: $t \in K$, $H_0$ wird zugunsten von $H_1 (\sigma > 0,03)$ abgelehnt, mit 95 \% iger statistischer Sicherheit lässt sich die Vermutung des Betreibers bestätigen.
+\end{enumerate}
+
+\subparagraph{Diskussion}
+\begin{enumerate}
+\item Die Entscheidung Ablehnung von $H_0$ oder nicht, hängt vom gewählten Signifikanzniveau $\alpha$ ab. Hätte man z.B. $\alpha = 0,01$ gewählt, so erhielte man  $t \notin K = (62,43;\infty)$, d.h.  gegen $H_0$ (Behauptung des Herstellers) ist nichts einzuwenden bzw. $H_1$ (die Behauptung des Betreibers) ließe sich nicht mit 99 \% Sicherheit nachweisen.
+\item Selbstverständlich ist das Niveau $\alpha$ vor der konkreten Durchführung des Tests festzulegen
+\item Derjenige $\alpha$-Wert, für den eine Grenze des kritischen Bereiches mit dem konkreten Wert $t$ der Testgröße übereinstimmt, d.h. die Grenzstelle zwischen Ablehnung und Nichtablehnung heißt auch p-Wert.\\*
+Damit $p < \alpha \curvearrowright$ Ablehnung von $H_0$\\*
+$p \geq \alpha \curvearrowright$ gegen $H_0$ ist nichts einzuwenden.
+
+Im Beispiel 2 ergibt sich $p=0,0195 < \alpha = 0,05$ Entscheidung wie oben! Die Angabe des p-Wertes erfolgt bei vielen Software-Paketen sowie TR anstelle des kritischen Bereiches.
+\end{enumerate}
+
+\subparagraph{Beispiel 4}
+Bei 100 Bauelementen der gleichen Art werde die Lebensdauer überprüft. Eine statistische Auswertung ergab:
+\begin{enumerate}
+\item $\bar{x} = 1203,1 \; h, s= 614 \; h$
+\item Häufigkeitstabelle\\
+$\begin{array}{c|c|c|c|c|c|c|c}
+0;500 & 500;1000 & 1000;1500&1500;2000&2000;2500&2500;3000&3000;3500&3500;4000\\ \hline
+11 & 29 & 27 & 23 & 7 & 2 & 0 & 1\\
+\end{array}$\\
+\end{enumerate}
+Man überprüfe bei einer Irrtumswahrscheinlichkeit von $\alpha = 0,05$, ob die Grundgesamtheit $X$ als expotentialverteilt angesehen werden kann.
+
+Lösung: $X^2$-Anpassungstest 
+\begin{enumerate}
+\item $\alpha = 0,05$
+\item $H_0 : X \in E(\lambda), F(x) = F_0(x)$
+mit $F_0(x) = \left \{ \begin{array}{lcr} 1-e^{-\lambda x} & \text{für} & x \geq 0\\ 0 & \text{für} & x <0 \\ \end{array} \right.$, dabei $\lambda = \frac{1}{\bar{x}} =  8,312 \cdot 10^{-4}$(Max-Likeltrod-Schätzung für $\lambda$, vgl. ÜA B9) $H_1= \bar{H_0}$
+\item Testgröße
+$\begin{array}{l|c|c|c|r}
+K_j = [ a_j, a_{j+1} ) & F_0(a_j) = 1-e^{-\lambda a_j} & p_j = F_0 (a_j + 1) -F_0(a_j) & n \cdot P_j & h_j \\ \hline
+[0;500)     & 0     & 0,340 & 34,0 & 11\\
+%[500;1000)  & 0,340 & 0,224 & 22,4 & 29\\
+%[1000;1500) & 0,564 & 0,149 & 14,9 & 27\\
+%[1500;2000) &0,713 & 0,097 & 9,7 & 23\\
+%[2000;2500) &0,810 & 0,065 & 6,5& 7\\
+%[2500;3000) &0,875 &0,042 & 4,2 & 2 \\
+%[3000;3500) & 0,917 & 0,028 & 2,8 & 0\\
+%[3500;\infty) & 0,975 & 0,055 & 5,5 & 1 \\
+\end{array}$\\
+\[ T = \sum\limits_{j=1}^k \frac{(H_j - n p_j)^2}{np_j} \underbrace{\tilde{\in}}_{(H_0)} X^2_{k-1-m}\] k=7, m=1
+
+konkreter Wert: $t= \frac{(11-34,0)^2}{34,0} + \dots + \frac{(2-7,0)^2}{7,0} + \frac{(1-5,5)^2}{5,5} = 52,9$
+\item $K = (X^2_{k-1-m;1-\alpha};\infty) = (11,07;\infty)$\\*
+$X^2_{5;0,95} = 11,07$
+\item $t \in K, H_0$ wird abgelehnt, d.h. die Lebensdauer ist mit 95 \%iger Sicherheit nicht expotentialverteilt
+
+\end{enumerate}
+
+\subparagraph{Diskussion zum Beispiel 4}
+\begin{itemize}
+\item Dichte der Expotentialverteilung
+\item Bessere Anpassung an das Histogramm z.B. durch die \textsc{Rayleigh}-Verteilung (vgl. Beispiel 2, Kap. 2.1.)\\
+Dichte: $f_0(x) = \left \{ \begin{array}{lcr} \frac{2x}{\lambda} e^{-\frac{x^2}{\lambda}} &\text{für} & x \geq 0 \\
+0 & \text{für} & x <0 \\ \end{array}\right. $
+\item Ein analog durchgeführter Test führt bei dieser Verteilung auf $t \notin K$, d.h. es lässt sich nicht mit 95\%iger Sicherheit widerlegen, dass $X$ \textsc{Rayleigh}-verteilt ist.
+\end{itemize}
+
+\subparagraph{Beispiel 5} 100 Würfe mit einer Münze ergaben $58 \times \{ \text{Zahl} \}$. Man überprüfe mit einer Irrtumtswkt. von $0,05$, ob die Münze als ideal (symmetrisch) angesehen werden kann, d.h. ob die beiden möglichen Versuchsausgänge \{ Wappen \} bzw. \{ Zahl \} gleichwahrscheinlich sind.
+
+Lösung: $X^2$-Anpassungstest Versuchsergebnis: $E_1 := \{ \text{Wappen} \} , E_2 := \{ \text{Zahl} \}$
+\begin{enumerate}
+\item $\alpha = 0,05$
+\item $H_0 : P(E_1) = P(E_2) = 0,5 , H_1 = \bar{H_0}$
+\item Testgröße $\begin{array}{l|c|c|r} \text{Versuchserg} & p_j & np_j & h_j \\ \hline
+E_1 & 0,5 & 50 & 42 \\
+E_2 & 0,5 & 50 & 58 \\
+\end{array}$
+\end{enumerate}
+
+Diskussion: Falls im Beispiel 5 $116 \times \{ \text{Zahl}\}$ bei $200$ Würfen auftritt (gleiche relative Häufigkeit), dann $t=5,12 \in K$ Ablehnung von $H_0$
+
+\subsubsection{Weitere parameterfreie Tests}
+\begin{itemize}
+\item \textsc{Kolmogorov}-Test (Test auf Unterliegen einer stetigen VF: $F_0 (x)$, benötigt wird die Urliste)
+\item $X^2$-Unabhängigkeitstest (zur Überprüfung der Unabhängigkeit zweier Merkmale $X$ und $Y$ auf der Basis einer zweidimensionalen Stichprobe $(X_1,Y_1),(X_2,Y_2),\dots,(X_n,Y_n))$
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
